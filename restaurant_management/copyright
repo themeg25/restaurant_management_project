@@ -1,0 +1,8 @@
+<footer style="text-align:center; padding: 1rem; background-color:#f4f4f4; margin-top:2rem;">
+  <p>&copy; <span id="year"></span> Your Company Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Set current year dynamically
+      document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
