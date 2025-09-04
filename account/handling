@@ -1,0 +1,19 @@
+from django.shortcuts import render
+from django.http import HttpResponseHttpResponse
+from .models import Reservation
+import logging
+
+# Set up logging
+logger = logging.getLoggHttpResponse
+
+def reservation_list(request):
+    try:
+            reservations = Reservation.objects.all()
+                    return render(request, "reservations/list.html", {"reservations": reservations})
+                        except Reservation.DoesNotExist:
+                                # Specific error if no reservations found
+                                        return HttpResponse("No reservations found.", status=404)
+                                            except Exception as e:
+                                                    # Catch-all for unexpected errors
+                                                            logger.error(f"Error fetching reservations: {e}")
+                                                                    return HttpResponse("Something went wrong. Please try again later.", status=500)
