@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Restaurant Homepage</title>
+        <style>
+            body {
+                      font-family: Arial, sans-serif;
+                            margin: 0;
+                                  padding: 0;
+                                        background: #fafafa;
+                                              color: #333;
+                                                  }
+                                                      header {
+                                                              text-align: center;
+                                                                    padding: 30px 20px;
+                                                                          background-color: #fff;
+                                                                                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                                                                                    }
+                                                                                        header img {
+                                                                                                  max-width: 200px;
+                                                                                                        height: auto;
+                                                                                                            }
+                                                                                                                main {
+                                                                                                                          padding: 20px;
+                                                                                                                                text-align: center;
+                                                                                                                                    }
+                                                                                                                                        footer {
+                                                                                                                                                  text-align: center;
+                                                                                                                                                        padding: 15px;
+                                                                                                                                                              background-color: #333;
+                                                                                                                                                                    color: #fff;
+                                                                                                                                                                          margin-top: 30px;
+                                                                                                                                                                              }
+                                                                                                                                                                                </style>
+                                                                                                                                                                                </head>
+                                                                                                                                                                                <body>
+
+                                                                                                                                                                                  <header>
+                                                                                                                                                                                      <!-- Replace 'logo.png' with the actual path to your logo file -->
+                                                                                                                                                                                          <img src="logo.png" alt="Restaurant Logo">
+                                                                                                                                                                                            </header>
+
+                                                                                                                                                                                              <main>
+                                                                                                                                                                                                  <h1>Welcome to Our Restaurant</h1>
+                                                                                                                                                                                                      <p>Delicious food, cozy ambiance, and excellent service.</p>
+                                                                                                                                                                                                        </main>
+
+                                                                                                                                                                                                          <footer>
+                                                                                                                                                                                                              &copy; <span id="year"></span> Your Restaurant Name. All rights reserved.
+                                                                                                                                                                                                                </footer>
+
+                                                                                                                                                                                                                  <script>
+                                                                                                                                                                                                                      // Auto-update year in footer
+                                                                                                                                                                                                                          document.getElementById("year").textContent = new Date().getFullYear();
+                                                                                                                                                                                                                            </script>
+
+                                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                                            </html>
+                                                                                                                                        }
+                                                                                                                }
+                                                                                        }
+                                                      }
+            }
