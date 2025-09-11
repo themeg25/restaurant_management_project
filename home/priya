@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Homepage with Search Bar</title>
+        <style>
+            body {
+                      font-family: Arial, sans-serif;
+                            display: flex;
+                                  justify-content: center;
+                                        align-items: center;
+                                              height: 100vh;
+                                                    background: #f8f8f8;
+                                                        }
+                                                            .search-container {
+                                                                      width: 100%;
+                                                                            max-width: 400px;
+                                                                                  display: flex;
+                                                                                      }
+                                                                                          .search-container input[type="text"] {
+                                                                                                  width: 100%;
+                                                                                                        padding: 10px;
+                                                                                                              border: 2px solid #ddd;
+                                                                                                                    border-radius: 25px 0 0 25px;
+                                                                                                                          outline: none;
+                                                                                                                              }
+                                                                                                                                  .search-container button {
+                                                                                                                                          padding: 10px 20px;
+                                                                                                                                                border: none;
+                                                                                                                                                      background-color: #4CAF50;
+                                                                                                                                                            color: white;
+                                                                                                                                                                  border-radius: 0 25px 25px 0;
+                                                                                                                                                                        cursor: pointer;
+                                                                                                                                                                            }
+                                                                                                                                                                                .search-container button:hover {
+                                                                                                                                                                                          background-color: #45a049;
+                                                                                                                                                                                              }
+                                                                                                                                                                                                </style>
+                                                                                                                                                                                                </head>
+                                                                                                                                                                                                <body>
+                                                                                                                                                                                                  <div class="search-container">
+                                                                                                                                                                                                      <input type="text" placeholder="Search menu items...">
+                                                                                                                                                                                                          <button type="button">Search</button>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                            </body>
+                                                                                                                                                                                                            </html>
+                                                                                                                                                                                }
+                                                                                                                                  }
+                                                                                          }
+                                                            }
+            }
