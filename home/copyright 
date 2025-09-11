@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Restaurant Website</title>
+        <style>
+            body {
+                      margin: 0;
+                            font-family: Arial, sans-serif;
+                                  min-height: 100vh;
+                                        display: flex;
+                                              flex-direction: column;
+                                                  }
+
+                                                      main {
+                                                              flex: 1; /* pushes footer to bottom */
+                                                                  }
+
+                                                                      footer {
+                                                                              background-color: #333;
+                                                                                    color: #fff;
+                                                                                          text-align: center;
+                                                                                                padding: 15px 0;
+                                                                                                      font-size: 14px;
+                                                                                                          }
+                                                                                                            </style>
+                                                                                                            </head>
+                                                                                                            <body>
+                                                                                                              <main>
+                                                                                                                  <!-- Page content goes here -->
+                                                                                                                    </main>
+
+                                                                                                                      <footer>
+                                                                                                                          <p>&copy; 2025 Your Restaurant Name. All Rights Reserved.</p>
+                                                                                                                            </footer>
+                                                                                                                            </body>
+                                                                                                                            </html>
+                                                                      }
+                                                      }
+            }
