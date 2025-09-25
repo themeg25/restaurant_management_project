@@ -1,0 +1,17 @@
+import string
+import secrets
+from .models import Coupon  # make sure you have a Coupon model that stores codes
+
+def generate_coupon_code(length=10):
+    """
+        Generate a unique alphanumeric coupon code.
+            Ensures uniqueness by checking against the Coupon model in the database.
+                """
+                    characters = string.ascii_uppercase + string.digits  # e.g., A-Z, 0-9
+                        
+                            while True:
+                                    code = ''.join(secrets.choice(characters) for _ in range(length))
+                                            
+                                                    # Check if this code already exists in the database
+                                                            if not Coupon.objects.filter(code=code).exists():
+                                                                        return code
