@@ -1,0 +1,15 @@
+from django.db import models
+from .models import OrderStatus  # make sure OrderStatus is defined in the same file
+# If OrderStatus is in another app, import it from there, e.g.:
+# from statuses.models import OrderStatus
+
+class Order(models.Model):
+    # your existing fields (example)
+        customer_name = models.CharField(max_length=100)
+            created_at = models.DateTimeField(auto_now_add=True)
+
+                # new field to track order status
+                    status = models.ForeignKey(OrderStatus, on_delete=models.SET_NULL, null=True)
+
+                        def __str__(self):
+                                return f"Order {self.id} - {self.customer_name}"
