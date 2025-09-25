@@ -1,0 +1,22 @@
+pip install djangorestframeworkfrom rest_framework import serializers
+from .models import MenuCategory
+
+class MenuCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+            model = MenuCategory
+                    fields = ['id', 'name']   # include 'id' to uniquely identify efrom rest_framework.generics import ListAPIView
+                    from .models import MenuCategory
+                    from .serializers import MenuCategorySerializer
+                    
+                    class MenuCategoryListView(ListAPIView):
+                        queryset = MenuCategory.objects.all()
+                            serializer_class = MenuCategorySerializerach categorfrom django.urls import path
+                            from .views import MenuCategoryListView
+                            
+                            urlpatterns = [
+                                    path('menu-categories/', MenuCategoryListView.as_view(), name='menu-categories-list'),
+                                    ]from django.urls import path, include
+
+urlpatterns = [
+    path('api/', include('home.urls')),   # All home app APIs will be prefixed with /api/
+]
