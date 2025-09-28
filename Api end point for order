@@ -1,0 +1,58 @@
+from django.db import models
+from django.conf import settings
+from home.models import MenuItem
+
+class Order(models.Model):
+    order_id = models.CharField(max_length=20, unique=True)
+        user = models.ForeignKey(
+                    settings.AUTH_USER_MODEL, 
+                            on_delete=models.CASCADE,
+                                    related_name='orders'
+                                        )
+                                            created_at = models.DateTimeField(auto_now_add=True)
+                                                total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+                                                    def __str__(self):
+                                                            return f"Order {self.order_id} by {self.user.username}"
+
+
+                                                            class OrderItem(models.Model):
+                                                                order = models.ForeignKey(
+                                                                            Order,
+                                                                                    on_delete=models.CASCADE,
+                                                                                            related_name='items'
+                                                                                                )
+                                                                                                    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+                                                                                                        quantity = models.PositiveIntegerField(default=1)
+                                                                                                            price = models.DecimalField(max_digits=10, decimal_places=2)
+
+                                                                                                                def __str__(self):
+                                                                                                                        return f"{self.quantity} x {self.menu_item.name}"
+                                                                )from rest_framework import serializers
+                                                                from .models import Order, OrderItem
+
+                                                                class OrderItemSerializer(serializers.ModelSerializer):
+                                                                    menu_item_name = serializers.CharField(source='menu_item.name', read_only=True)
+
+                                                                        class Meta:
+                                                                                model = OrderItem
+                                                                                        fields = ['menu_item_name', 'quantity', 'price']
+
+
+                                                                                        class OrderSerializer(serializers.ModelSerializer):
+                                                                                            user = serializers.StringRelatedField()  # Shows username by default
+                                                                                                items = OrderItemSerializer(many=True, read_only=True)
+
+                                                                                                    class Meta:
+                                                                                                            model = Orderfrom rest_framework.generics import RetrieveAPIView
+                                                                                                            from rest_framework.permissions import IsAuthenticated
+                                                                                                            from .models import Order
+                                                                                                            from .serializers import OrderSerializer
+
+                                                                                                            class OrderDetailView(RetrieveAPIView):
+                                                                                                                queryset = Order.objects.all()
+                                                                                                                    serializer_class = OrderSerializer
+                                                                                                                        permission_classes = [IsAuthenticated]
+                                                                                                                            lookup_field = 'order_id'  # We’ll use order_id instead of pk
+                                                                                                                    fields = ['order_id', 'user', 'created_at', 'total_price', 'items']
+        )
