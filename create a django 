@@ -1,0 +1,38 @@
+# utils/validation_utils.py
+import logging
+from email.utils import parseaddr
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
+# Configure logger
+logger = logging.getLogger(__name__)
+
+def is_valid_email(email: str) -> bool:
+    """
+        Validates an email address using Python's built-in parsing
+            and Django's email validator.
+
+                Args:
+                        email (str): The email address to validate.
+
+                            Returns:
+                                    bool: True if valid, False otherwise.
+                                        """
+                                            try:
+                                                    # Quick format check using parseaddr
+                                                            name, addr = parseaddr(email)
+                                                                    if not addr:  # No email part found
+                                                                                return False
+
+                                                                                        # Django's stricter validation
+                                                                                                validate_email(addr)
+                                                                                                        return True
+
+                                                                                                            except ValidationError:
+                                                                                                                    logger.warning(f"Invalid email address provided: {email}")
+                                                                                                                            return False
+
+                                                                                                                                except Exception as e:
+                                                                                                                                        # Catch any unexpected errors to prevent crashes
+                                                                                                                                                logger.error(f"Error validating email '{email}': {e}")
+                                                                                                                                                        return False
