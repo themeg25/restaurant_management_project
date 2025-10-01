@@ -1,0 +1,74 @@
+from rest_framework import serializers
+from django.contrib.auth.models import User
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = User
+                    fields = ['first_name', 'last_name', 'email']  # Only fields allowed for update
+                            extra_kwargs = {
+                                            'email': {'required': True},
+                                                    }
+          from rest_framework import viewsets, permissions, status
+          from rest_framework.response import Response
+          from django.contrib.auth.models import User
+          from .serializers import UserProfileSerializer
+          
+          class UserProfileViewSet(viewsets.ViewSet):
+              permission_classes = [permissions.IsAuthenticated]
+              
+                  def get_object(self):
+                          # Returns the currently logged-in user
+                                  return self.request.user
+                                  
+                                      def update(self, request, *args, **kwargs):
+                                              user = self.get_object()
+                                                      serializer = UserProfileSerializer(user, data=request.data, partial=False)  # PUT replaces all fields
+                                                              serializer.is_valid(raise_exception=True)
+                                                                      serializer.save()
+                                                                              return Response(serializer.data, status=status.HTTP_200_OK)
+                                                                              
+                                                                                  def partial_update(self, request, *args, **kwargs):
+                                                                                          # Handles PATCH requests for partial updates
+                                                                                                  user = self.get_object()
+                                                                                                          serializer = UserProfileSerializer(user, data=request.data, partial=True)
+                                                                                                                  serializer.is_valid(raise_exception=True)
+                                                                                                                          serializer.save()
+                                                                                                                                  return Response(serializer.data, status=status.HTTP_200_OK)  from django.urls import path, include
+                                                                                                                                  from rest_framework.routers import DefaultRouter
+                                                                                                                                  from .views import UserProfileViewSet
+                                                                                                                                  
+                                                                                                                                  router = DefaultRouter()
+                                                                                                                                  router.register(r'profile', UserProfileViewSet, basename='profile')
+                                                                                                                                  
+                                                                                                                                  urlpatterns = [
+                                                                                                                                        path('', include(router.urls)),
+                                                                                                                                        ]
+                                                                                                                                  ]           from django.urls import path, include
+                                                                                                                                  from rest_framework.routers import DefaultRouter
+                                                                                                                                  from .views import UserProfileViewSet
+                                                                                                                                  
+                                                                                                                                  router = DefaultRouter()
+                                                                                                                                  router.register(r'profile', UserProfileViewSet, basename='profile')
+                                                                                                                                  
+                                                                                                                                  urlpatterns = [
+                                                                                                                                        path('', include(router.urls)),
+                                                                                                                                        ]
+                                                                                                                                  ]     }INSTALLED_APPS = [
+                                                                                                                                        ...
+                                                                                                                                            'rest_framework',
+                                                                                                                                                'users',
+                                                                                                                                                ]
+
+                                                                                                                                                REST_FRAMEWORK = {
+                                                                                                                                                        'DEFAULT_AUTHENTICATION_CLASSES': [
+                                                                                                                                                                    'rest_framework.authentication.SessionAuthentication',
+                                                                                                                                                                            'rest_framework.authentication.TokenAuthentication',
+                                                                                                                                                                                ],
+                                                                                                                                                                                    'DEFAULT_PERMISSION_CLASSES': [
+                                                                                                                                                                                                'rest_framework.permissions.IsAuthenticated',
+                                                                                                                                                                                                    ]
+                                                                                                                                                                                                    }
+                                                                                                                                                                                    ]
+                                                                                                                                                        ]
+                                                                                                                                                }
+                                                                                                                                  ]
