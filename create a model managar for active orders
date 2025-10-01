@@ -1,0 +1,17 @@
+from django.db import models
+
+class Restaurant(models.Model):
+    name = models.CharField(max_length=200)
+        address = models.TextField()
+            phone = models.CharField(max_length=15)
+                # Existing fields ...
+
+                    # ✅ New field for operating days
+                        operating_days = models.CharField(
+                                    max_length=100,  # enough to store all days
+                                            help_text="Enter days like: Mon,Tue,Wed,Thu,Fri,Sat,Sun"
+                                                )
+
+                                                    def __str__(self):
+                                                            return self.name
+                        )
