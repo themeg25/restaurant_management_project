@@ -1,0 +1,22 @@
+from datetime import date
+from django.db.models import Sum
+from .models import Order
+
+def get_daily_sales_total(target_date: date):
+    """
+        Calculate total sales for a given date.
+
+            Args:
+                    target_date (date): A datetime.date object representing the day to calculate sales for.
+
+                        Returns:
+                                Decimal: Total sales for the day. Returns 0 if no orders exist.
+                                    """
+                                        # Filter orders by the given date
+                                            orders = Order.objects.filter(created_at__date=target_date)
+                                                
+                                                    # Aggregate total_price
+                                                        total = orders.aggregate(total_sum=Sum('total_price'))['total_sum']
+                                                            
+                                                                # Return total or 0 if None
+                                                                    return total or 0
