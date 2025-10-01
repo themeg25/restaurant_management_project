@@ -1,0 +1,56 @@
+from django.db import models
+from django.contrib.auth.models import User  # Assuming orders are linked to users
+
+class Order(models.Model):
+    STATUS_CHOICES = [
+                ('Pending', 'Pending'),
+                        ('Processing', 'Processing'),
+                                ('Cancelled', 'Cancelled'),
+                                        ('Completed', 'Completed'),
+                                            ]
+                                                
+                                                    user = models.ForeignKey(User, on_delete=models.CASCADE)
+                                                        created_at = models.DateTimeField(auto_now_add=True)
+                                                            status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+                                                                
+                                                                    # ... other fields like items, total_price etc.
+    ]from rest_framework.views import APIView
+    from rest_framework.response import Response
+    from rest_framework import status as http_status
+    from .models import Order
+    from django.shortcuts import get_object_or_404
+
+    class CancelOrderAPIView(APIView):
+        """
+            API endpoint to cancel an order by ID.
+                """
+
+                    def delete(self, request, order_id):
+                            # Fetch order, return 404 if not found
+                                    order = get_object_or_404(Order, id=order_id)
+                                            
+                                                    # Check if the order belongs to the requesting user
+                                                            if order.user != request.user:
+                                                                        return Response(
+                                                                                            {"detail": "You are not authorized to cancel this order."},
+                                                                                                            status=http_status.HTTP_403_FORBIDDEN
+                                                                                                                        )
+                                                                                                                                
+                                                                                                                                        # Check if already cancelled or completed
+                                                                                                                                                if order.status in ['Cancelled', 'Completed']:
+                                                                                                                                                            return Response(
+                                                                                                                                                                                {"detail": f"Cannot cancel an order that is {order.status}."},
+                                                                                                                                                                                                status=http_status.HTTP_400_BAD_REQUEST
+                                                                                                                                                                                                            )
+                                                                                                                                                                                                                    
+                                                                                                                                                                                                                            # Update status
+                                                                                                                                                                                                                                    order.status = 'Cancelled'
+                                                                                                                                                                                                                                            order.save()
+                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                            return Response(
+                                                                                                                                                                                                                                                                            {"detail": f"Order {order_id} has been cancelled."},
+                                                                                                                                                                                                                                                                                        status=http_status.HTTP_200_OK
+                                                                                                                                                                                                                                                                                                )
+                                                                                                                                                                                                                                                            )
+                                                                                                                                                            )
+                                                                        )
