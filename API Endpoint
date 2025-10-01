@@ -1,0 +1,28 @@
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from .models import Table
+from .serializers import TableSerializer
+
+
+class AvailableTablesAPIView(ListAPIView):
+    serializer_class = TableSerializer
+
+        def get_queryset(self):
+                # Returns only available tables
+                        return Table.objects.filter(is_available=True)
+
+
+                        class TableDetailAPIView(RetrieveAPIView):
+                            queryset = Table.objects.all()        # Retrieve from all tables
+                                serializer_class = TableSerializer    # Use the same serializerfrom django.urls import path
+from .views import AvailableTablesAPIView, TableDetailAPIView
+
+urlpatterns = [
+    path('api/tables/available/', AvailableTablesAPIView.as_view(), name='available_tables_api'),
+    path('api/tables/<int:pk>/', TableDetailAPIView.as_view(), name='table_detail_api'),
+from django.urls import path
+from .views import AvailableTablesAPIView, TableDetailAPIView
+
+urlpatterns = [
+    path('api/tables/available/', AvailableTablesAPIView.as_view(), name='available_tables_api'),
+    path('api/tables/<int:pk>/', TableDetailAPIView.as_view(), name='table_detail_api'),
+]
