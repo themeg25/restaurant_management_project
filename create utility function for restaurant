@@ -1,0 +1,28 @@
+from datetime import datetime, time
+
+def is_restaurant_open():
+    """
+        Check if the restaurant is currently open based on hardcoded operating hours.
+            Returns True if open, False otherwise.
+                """
+                    # Get current day and time
+                        now = datetime.now()
+                            current_time = now.time()
+                                current_weekday = now.weekday()  # Monday = 0, Sunday = 6
+
+                                    # Example opening hours
+                                        # Weekdays (Mon-Fri): 9:00 AM to 10:00 PM
+                                            weekday_open = time(9, 0)
+                                                weekday_close = time(22, 0)
+
+                                                    # Weekends (Sat-Sun): 10:00 AM to 11:00 PM
+                                                        weekend_open = time(10, 0)
+                                                            weekend_close = time(23, 0)
+
+                                                                # Check if today is weekday or weekend
+                                                                    if current_weekday < 5:  # Mon-Fri
+                                                                            is_open = weekday_open <= current_time <= weekday_close
+                                                                                else:  # Sat-Sun
+                                                                                        is_open = weekend_open <= current_time <= weekend_close
+
+                                                                                            return is_open
