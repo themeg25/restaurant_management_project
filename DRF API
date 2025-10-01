@@ -1,0 +1,16 @@
+from rest_framework import serializers
+from .models import Table
+
+class TableSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = Table
+                    fields = ['table_number', 'capacity', 'is_available']from rest_framework.generics import ListAPIView
+                    from .models import Table
+                    from .serializers import TableSerializer
+
+                    class AvailableTablesAPIView(ListAPIView):
+                        serializer_class = TableSerializer
+
+                            def get_queryset(self):
+                                    # Return only available tables
+                                            return Table.objects.filter(is_available=True)
