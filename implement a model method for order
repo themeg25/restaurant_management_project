@@ -1,0 +1,32 @@
+def calculate_discount(price, discount_percentage=0):
+    """
+        Apply a discount to a price.
+            Args:
+                    price (Decimal or float): Original price
+                            discount_percentage (float): Discount as decimal (e.g., 0.10 for 10%)
+
+                                Returns:
+                                        Decimal: Price after discount
+                                            """
+                                                return price * (1 - discount_pefrom decimal import Decimal
+                                                from django.db import models
+                                                from .utils import calculate_discountdiscount
+                                                
+                                                class Order(models.Model):
+                                                    # Fields: user, status, created_at, etc.
+                                                        # ...
+                                                        
+                                                            def calculate_total(self):
+                                                                    """
+                                                                            Calculate the total price of this order, taking into account
+                                                                                    discounts for each item.
+                                                                                            Returns a Decimal.
+                                                                                                    """
+                                                                                                            total = Decimal('0.00')
+                                                                                                            
+                                                                                                                    # Iterate through all order items
+                                                                                                                            for item in self.items.all():  # assumes related_name='items' in OrderItem
+                                                                                                                                        price_after_discount = calculate_discount(item.price, getattr(item, 'discount', 0))
+                                                                                                                                                    total += price_after_discount * item.quantity
+                                                                                                                                                    
+                                                                                                                                                            return totalrcentage)
