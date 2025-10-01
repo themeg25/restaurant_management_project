@@ -1,0 +1,33 @@
+import string
+import secrets
+from .models import Order
+
+def generate_unique_order_id(length=8):
+    """
+        Generate a unique alphanumeric order ID.
+
+            Args:
+                    length (int): Length of the order ID. Default is 8 characters.
+
+                        Returns:
+                                str: A unique alphanumeric order ID.
+                                    """
+                                        characters = string.ascii_uppercase + string.digits + string.ascii_lowercase
+                                            
+                                                while True:
+                                                        # Generate random string
+                                                                order_id = ''.join(secrets.choice(characters) for _ in range(length))
+                                                                        
+                                                                                # Check if it already exists in the database
+                                                                                        if not Order.objects.filter(unique_id=order_id).exists():
+                                                                          from django.db import models
+                                                                          from .utils import generate_unique_order_id
+                                                                          
+                                                                          class Order(models.Model):
+                                                                              unique_id = models.CharField(max_length=12, unique=True, editable=False)
+                                                                                  # other fields: user, status, total_price, created_at, etc.
+                                                                                  
+                                                                                      def save(self, *args, **kwargs):
+                                                                                              if not self.unique_id:
+                                                                                                          self.unique_id = generate_unique_order_id()
+                                                                                                                  super().save(*args, **kwargs)                          return order_id
