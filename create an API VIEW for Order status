@@ -16,4 +16,22 @@ class Order(models.Model):
 
                                                                 def __str__(self):
                                                                         return f"Order {self.id} - {self.status}"
-    ]
+    ]from rest_framework.views import APIView
+    from rest_framework.response import Response
+    from rest_framework import status as http_status
+    from django.shortcuts import get_object_or_404
+    from .models import Order
+    from .serializers import UpdateOrderStatusSerializer
+
+    class UpdateOrderStatusAPIView(APIView):
+        """
+            API endpoint to update the status of an existing order.
+                """
+
+                    def put(self, request, order_id):
+                            order = get_object_or_404(Order, id=order_id)
+                                    serializer = UpdateOrderStatusSerializer(order, data=request.data, partial=True)
+                                            if serializer.is_valid():
+                                                        serializer.save()
+                                                                    return Response({"detail": f"Order {order_id} status updated successfully.", "status": serializer.data['status']}, status=http_status.HTTP_200_OK)
+                                                                            return Response(serializer.errors, status=http_status.HTTP_400_BAD_REQUEST)
