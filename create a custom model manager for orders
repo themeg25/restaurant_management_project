@@ -1,0 +1,37 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class OrderManager(models.Manager):
+    """
+        Custom manager for Order model.
+            Provides convenience methods for querying orders.
+                """
+
+                    def by_status(self, status):
+                            """
+                                    Return a queryset of orders filtered by status.
+                                            """
+                                                    return self.filter(status=status)
+
+                                                        def pending_orders(self):
+                                                                """
+                                                                        Return all orders with status 'Pending'.
+                                                                                """
+                                                                                        return self.by_staclass Order(models.Model):
+                                                                                            STATUS_CHOICES = [
+                                                                                                        ('Pending', 'Pending'),
+                                                                                                                ('Processing', 'Processing'),
+                                                                                                                        ('Cancelled', 'Cancelled'),
+                                                                                                                                ('Completed', 'Completed'),
+                                                                                                                                    ]
+                                                                                                                                    
+                                                                                                                                        user = models.ForeignKey(User, on_delete=models.CASCADE)
+                                                                                                                                            status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+                                                                                                                                                created_at = models.DateTimeField(auto_now_add=True)
+                                                                                                                                                    # other fields: unique_id, total_price, etc.
+                                                                                                                                                    
+                                                                                                                                                        # Attach the custom manager
+                                                                                                                                                            objects = OrderManager()
+                                                                                                                                                            
+                                                                                                                                                                def __str__(self):
+                                                                                                                                                                        return f"Order {self.id} - {self.status}"tus('Pending')
