@@ -1,0 +1,57 @@
+from django.db import models
+from django.utils import timezone
+from datetime import timedelta
+
+class Reservation(models.Model):
+    customer_name = models.CharField(max_length=100)
+        customer_phone = models.CharField(max_length=20)
+            table_number = models.PositiveIntegerField()
+                start_time = models.DateTimeField()
+                    end_time = models.DateTimeField()
+
+                        def __str__(self):
+                                return f"Reservation for {self.customer_name} at Table {self.table_number}"
+
+                                    @classmethod
+                                        def find_available_slots(cls, start_time, end_time, table_number, slot_duration=timedelta(minutes=30)):
+                                                """
+                                                        Find available reservation slots for a given table between start_time and end_time.
+
+                                                                Args:
+                                                                            start_time (datetime): The start of the period to search.
+                                                                                        end_time (datetime): The end of the period to search.
+                                                                                                    table_number (int): The table we’re checking for availability.
+                                                                                                                slot_duration (timedelta): Duration of each reservation slot.
+
+                                                                                                                        Returns:
+                                                                                                                                    list: A list of (slot_start, slot_end) tuples representing available slots.
+                                                                                                                                            """
+
+                                                                                                                                                    # 1. Fetch all reservations for the given table that overlap with the requested time window
+                                                                                                                                                            reservations = cls.objects.filter(
+                                                                                                                                                                            table_number=table_number,
+                                                                                                                                                                                        start_time__lt=end_time,     # reservation starts before requested end
+                                                                                                                                                                                                    end_time__gt=start_time      # reservation ends after requested start
+                                                                                                                                                                                                            ).order_by('start_time')
+
+                                                                                                                                                                                                                    available_slots = []
+
+                                                                                                                                                                                                                            # 2. Start from the beginning of the requested range
+                                                                                                                                                                                                                                    current_start = start_time
+
+                                                                                                                                                                                                                                            # 3. Iterate over existing reservations and fill gaps
+                                                                                                                                                                                                                                                    for res in reservations:
+                                                                                                                                                                                                                                                                if current_start + slot_duration <= res.start_time:
+                                                                                                                                                                                                                                                                                # There is a free slot before this reservation starts
+                                                                                                                                                                                                                                                                                                available_slots.append((current_start, res.start_time))
+
+                                                                                                                                                                                                                                                                                                            # Move the current_start forward to after the current reservation ends
+                                                                                                                                                                                                                                                                                                                        if res.end_time > current_start:
+                                                                                                                                                                                                                                                                                                                                        current_start = res.end_time
+
+                                                                                                                                                                                                                                                                                                                                                # 4. Check for availability after the last reservation
+                                                                                                                                                                                                                                                                                                                                                        if current_start + slot_duration <= end_time:
+                                                                                                                                                                                                                                                                                                                                                                    available_slots.append((current_start, end_time))
+
+                                                                                                                                                                                                                                                                                                                                                                            return available_slots
+                                                                                                                                                            )
