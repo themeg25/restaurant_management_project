@@ -1,0 +1,40 @@
+from django.db import models
+
+class Restaurant(models.Model):
+    name = models.CharField(max_length=255)
+        address = models.TextField()
+            # Add the new field for opening hours
+                opening_hours = models.CharField(
+                            max_length=100,
+                                    help_text="Store opening hours in the format: '11:00 AM - 11:00 PM (EST)'"
+                                        )
+
+                                            def __str__(self):
+                                                    return self.name
+                )from rest_framework.views import APIView
+                from rest_framework.response import Response
+                from rest_framework import status
+                from .models import Restaurant
+
+                class OpeningHoursView(APIView):
+                    """
+                        API endpoint to fetch the restaurant's opening hours.
+                            """
+
+                                def get(self, request):
+                                        try:
+                                                    restaurant = Restaurant.objects.first()  # Assuming only one restaurant
+                                                                if not restaurant or not restaurant.opening_hours:
+                                                                                return Response(
+                                                                                                        {"error": "Opening hours not found."},
+                                                                                                                            status=status.HTTP_404_NOT_FOUND
+                                                                                                                                            )
+
+                                                                                                                                                        return Response({"opening_hours": restaurant.opening_hours}, status=status.HTTP_200_OK)
+                                                                                                                                                                except Exception as e:
+                                                                                                                                                                            return Response(
+                                                                                                                                                                                                {"error": str(e)},
+                                                                                                                                                                                                                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                                                                                                                                                                                                                            )
+                                                                                                                                                                            )
+                                                                                )
