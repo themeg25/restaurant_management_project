@@ -1,0 +1,28 @@
+def calculate_discount(order_total, discount_percentage):
+    """
+        Calculate the discount amount based on the order total and discount percentage.
+
+            Args:
+                    order_total (float or int): The total amount of the order.
+                            discount_percentage (float or int): The discount percentage to apply (e.g., 10 for 10%).
+
+                                Returns:
+                                        float: The discount amount calculated from the order total and discount percentage.
+
+                                            Raises:
+                                                    ValueError: If the inputs are not numeric or if they are negative.
+
+                                                        Example:
+                                                                >>> calculate_discount(200, 10)
+                                                                        20.0
+                                                                            """
+                                                                                # Validate inputs
+                                                                                    if not (isinstance(order_total, (int, float)) and isinstance(discount_percentage, (int, float))):
+                                                                                            raise ValueError("Both order_total and discount_percentage must be numeric values.")
+                                                                                                
+                                                                                                    if order_total < 0 or discount_percentage < 0:
+                                                                                                            raise ValueError("order_total and discount_percentage cannot be negative.")
+
+                                                                                                                # Calculate discount
+                                                                                                                    discount_amount = order_total * (discount_percentage / 100)
+                                                                                                                        return round(discount_amount, 2)
